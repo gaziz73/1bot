@@ -1,0 +1,18 @@
+@Component
+public class BotInitializer {
+    private final TelegramBot telegramBot;
+    @Autowired
+    public BotInitializer(TelegramBot telegramBot) {
+        this.telegramBot = telegramBot;
+    }
+
+    @EventListener({ContextRefreshedEvent.class})
+    public void init()throws TelegramApiException{
+        TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
+        try{
+            telegramBotsApi.registerBot(telegramBot);
+        } catch (TelegramApiException e){
+
+        }
+    }
+}
